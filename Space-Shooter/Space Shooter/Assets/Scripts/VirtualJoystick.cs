@@ -48,7 +48,6 @@ namespace SpaceShooter
         {
             OnDrag(eventData);
         }
-
         public void OnPointerUp(PointerEventData eventData)
         {
             Value = Vector3.zero;

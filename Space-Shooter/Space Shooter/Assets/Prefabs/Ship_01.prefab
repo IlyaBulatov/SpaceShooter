@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9200804393895640097}
   - component: {fileID: 9124064943636954019}
   - component: {fileID: 1165036210409000402}
+  - component: {fileID: 6138850941833085587}
+  - component: {fileID: 3268712620105993725}
   m_Layer: 0
   m_Name: Ship_01
   m_TagString: Untagged
@@ -76,11 +78,40 @@ MonoBehaviour:
   m_Nickname: Red
   m_Indestructible: 0
   m_HitPoints: 100
+  m_EventOnDeath:
+    m_PersistentCalls:
+      m_Calls: []
   m_Mass: 1
   m_Thrust: 1000
   m_Mobility: 2000
   m_MaxLinearVelocity: 15
   m_MaxAngularVelocity: 360
+--- !u!114 &6138850941833085587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926354054451955518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281c6dbf563da33469117fa0d29bdbc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_VelocityDamageModifier: 0
+  m_DamageConstant: 1000
+--- !u!114 &3268712620105993725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926354054451955518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c2380ab91d48448815ea289f432a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4105233850185958128
 GameObject:
   m_ObjectHideFlags: 0

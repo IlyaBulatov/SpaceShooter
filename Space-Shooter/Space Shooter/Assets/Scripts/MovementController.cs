@@ -12,6 +12,7 @@ namespace SpaceShooter
 
         [SerializeField]
         private SpaceShip m_TargetShip;
+        public void SetTargetShip(SpaceShip ship) => m_TargetShip = ship;
 
         [SerializeField]
         private VirtualJoystick m_MobileJoystick;
@@ -44,13 +45,15 @@ namespace SpaceShooter
 
         private void ControlMobile()
         {
-            Vector3 dir = m_MobileJoystick.Value;
+            var dir = m_MobileJoystick.Value;
+            m_TargetShip.ThrustControl = dir.y;
+            m_TargetShip.TorqueControl = -dir.x;
 
-            var dot = Vector2.Dot(dir, m_TargetShip.transform.up);
-            var dot2 = Vector2.Dot(dir, m_TargetShip.transform.right);
+            //var dot = Vector2.Dot(dir, m_TargetShip.transform.up);
+            //var dot2 = Vector2.Dot(dir, m_TargetShip.transform.right);
 
-            m_TargetShip.ThrustControl = Mathf.Max(0, dot);
-            m_TargetShip.TorqueControl = -dot2;
+            //m_TargetShip.ThrustControl = Mathf.Max(0, dot);
+            //m_TargetShip.TorqueControl = -dot2;
         }
 
         /// <summary>
