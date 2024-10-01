@@ -69,11 +69,15 @@ namespace SpaceShooter
             m_Rigid.mass = m_Mass;
 
             m_Rigid.inertia = 1;
+
+            InitOffensive();
         }
 
         private void FixedUpdate()
         {
             UpdateRigidbody();
+
+            UpdateEnergyRegen();
         }
 
         #endregion
@@ -97,18 +101,88 @@ namespace SpaceShooter
         }
 
         [SerializeField]
-        private Turret[] m_Turret;
+        private Turret[] m_Turrets;
 
         public void Fire(TurretMode mode)
         {
-            for(int i = 0; i < m_Turret.Length; ++i)
+            for(int i = 0; i < m_Turrets.Length; ++i)
             {
-                if (m_Turret[i].Mode == mode)
+                if (m_Turrets[i].Mode == mode)
                 {
-                    m_Turret[i].Fire();
+                    m_Turrets[i].Fire();
                 }
             }
         }
         #endregion
+
+        [SerializeField]
+        private int m_MaxEnergy;
+
+        [SerializeField]
+        private int m_MaxAmmo;
+
+        [SerializeField]
+        private int m_EnergyRegenPerSecond;
+
+        private float m_CurrentEnergy;
+        private int m_CurrentAmmo;
+
+        public void AddEnergy(int e)
+        {
+            m_CurrentEnergy = Mathf.Clamp(m_CurrentEnergy + e, 0, m_MaxEnergy);
+        }
+
+        public void AddAmmo(int ammo)
+        {
+            m_CurrentAmmo = Mathf.Clamp(m_CurrentAmmo + ammo, 0, m_MaxAmmo);
+        }
+
+        private void InitOffensive()
+        {
+            m_CurrentEnergy = m_MaxEnergy;
+            m_CurrentAmmo = m_MaxAmmo;
+        }
+
+        private void UpdateEnergyRegen()
+        {
+            m_CurrentEnergy += (float)m_EnergyRegenPerSecond * Time.deltaTime;
+            m_CurrentEnergy = Mathf.Clamp(m_CurrentEnergy, 0, m_MaxEnergy);
+        }
+
+        public bool DrawEnergy(int count)
+        {
+            if (count == 0)
+                return true;
+
+            if (m_CurrentEnergy >= count)
+            {
+                m_CurrentEnergy -= count;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool DrawAmmo(int count)
+        {
+            if (count == 0)
+                return true;
+
+            if(m_CurrentAmmo >= count)
+            {
+                m_CurrentAmmo -= count;
+                return true;
+            }
+
+            return false;
+        }
+
+        public void AssignWeapon(TurretProperties props)
+        {
+            for(int i = 0; i < m_Turrets.Length; i++)
+            {
+                m_Turrets[i].AssignLoadout(props);
+            }
+        }
     }
 }
